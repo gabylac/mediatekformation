@@ -106,6 +106,6 @@ class FormationRepository extends ServiceEntityRepository
                 ->orderBy('f.publishedAt', 'ASC')   
                 ->getQuery()
                 ->getResult();        
-    }
-    
+    }        
+        
 }

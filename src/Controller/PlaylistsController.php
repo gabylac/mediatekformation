@@ -48,10 +48,10 @@ class PlaylistsController extends AbstractController {
      */
     #[Route('/playlists', name: 'playlists')]
     public function index(): Response{
-        $playlists = $this->playlistRepository->findAllOrderByName('ASC');
-        $categories = $this->categorieRepository->findAll();
+        $playlists = $this->playlistRepository->findAllOrderByName('ASC');        
+        $categories = $this->categorieRepository->findAll();        
         return $this->render("pages/playlists.html.twig", [
-            'playlists' => $playlists, 
+            'playlists' => $playlists,             
             'categories' => $categories            
         ]);
     }
@@ -61,6 +61,9 @@ class PlaylistsController extends AbstractController {
         switch($champ){
             case "name":
                 $playlists = $this->playlistRepository->findAllOrderByName($ordre);
+                break;
+            case "formations":
+                $playlists = $this->playlistRepository->findAllOrderByFormation($ordre);
                 break;
             default:
                 return $this->findAll();
@@ -96,5 +99,5 @@ class PlaylistsController extends AbstractController {
             'playlistformations' => $playlistFormations
         ]);        
     }       
-    
+        
 }

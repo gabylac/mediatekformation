@@ -71,6 +71,6 @@ class FormationsController extends AbstractController {
         return $this->render("pages/formation.html.twig", [
             'formation' => $formation
         ]);
-    }
+    }    
     
 }
