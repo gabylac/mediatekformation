@@ -1,0 +1,52 @@
+{% extends "baseadmin.html.twig" %}
+
+{% block body %}
+    <p class="text-end">
+        <a href=" {{ path('admin.formation.ajout') }}" , class="btn btn-primary">
+            Ajouter une nouvelle formation
+        </a>
+    </p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Formation 
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Playlists 
+                </th>
+                <th>
+                    Catégories 
+                </th>
+                <th>
+                     Actions
+                </th> 
+            </tr>
+        </thead>
+        <tbody>
+            {% for formation in formations %}
+                <tr>
+                    <td>
+                        {{ formation.title }}
+                    </td>                                
+                    <td>
+                        {{ formation.publishedAtstring }}
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                    <a href="{{ path('admin.formation.edit', {id:formation.id}) }}" class="btn btn-secondary">Editer</a>
+                    <a href="{{ path('admin.formations.suppr', {id:formation.id}) }}" onclick="return confirm('Etes-vous sûr de vouloir supprimer {{ formation.title }} ?')" class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
