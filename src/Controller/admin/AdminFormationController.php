@@ -62,6 +62,6 @@ class AdminFormationController extends AbstractController{
         }        
         return $this->render("admin/admin.formation.editer.html.twig", ['formation' => $formation, 
             'formformation' => $formFormation->createView()]);
-    }
-
+    }    
+    
 }

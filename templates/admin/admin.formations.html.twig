@@ -29,20 +29,23 @@
         <tbody>
             {% for formation in formations %}
                 <tr>
-                    <td>
-                        {{ formation.title }}
+                    <td width="500">                    
+                            {{ formation.title }}                        
                     </td>                                
                     <td>
                         {{ formation.publishedAtstring }}
                     </td>
                     <td>
+                        {{ formation.playlist.name }}
                         
+                    </td>                    
+                    <td class="text-left">
+                       {% for categorie in formation.categories %}
+                            {{ categorie.name }}<br />
+                        {% endfor %}                     
                     </td>
                     <td>
-                        
-                    </td>
-                    <td>
-                    <a href="{{ path('admin.formation.edit', {id:formation.id}) }}" class="btn btn-secondary">Editer</a>
+                        <a href="{{ path('admin.formation.edit', {id:formation.id}) }}" class="btn btn-secondary">Editer</a>
                     <a href="{{ path('admin.formations.suppr', {id:formation.id}) }}" onclick="return confirm('Etes-vous sûr de vouloir supprimer {{ formation.title }} ?')" class="btn btn-danger">Supprimer</a>
                     </td>
                 </tr>

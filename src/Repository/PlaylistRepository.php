@@ -89,6 +89,6 @@ class PlaylistRepository extends ServiceEntityRepository
                 ->orderBy('count(f.id)', $ordre)
                 ->getQuery()
                 ->getResult();       
-    } 
+    }    
     
 }

@@ -106,6 +106,20 @@ class FormationRepository extends ServiceEntityRepository
                 ->orderBy('f.publishedAt', 'ASC')   
                 ->getQuery()
                 ->getResult();        
-    }        
+    }
+    
+    /**
+     *Supprime toutes les formations d'une playlist en une fois 
+     * @param Formation $idPlaylist
+     * @return void
+     */
+    public function removeFormations(Formation $idPlaylist): void{
+         $formations = $this->findAllForOnePlaylist($idPlaylist);
+         foreach($formations as $formation){
+             $this->getEntityManager()->remove($formation);
+             $this->getEntityManager()->flush();
+         }
+         
+     }
         
 }

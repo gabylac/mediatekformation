@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Repository\PlaylistRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\FormationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,18 +28,20 @@ class FormationsController extends AbstractController {
      */
     private $categorieRepository;
     
+        
     function __construct(FormationRepository $formationRepository, CategorieRepository $categorieRepository) {
         $this->formationRepository = $formationRepository;
         $this->categorieRepository= $categorieRepository;
+        
     }
     
     #[Route('/formations', name: 'formations')]
-    public function index(): Response{
+    public function index(): Response{        
         $formations = $this->formationRepository->findAll();
-        $categories = $this->categorieRepository->findAll();
+        $categories = $this->categorieRepository->findAll();        
         return $this->render("pages/formations.html.twig", [
             'formations' => $formations,
-            'categories' => $categories
+            'categories' => $categories            
         ]);
     }
 

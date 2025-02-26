@@ -1,0 +1,35 @@
+{% extends "baseadmin.html.twig" %}
+
+{% block body %}
+    <p class="text-end">
+        <a href="{{ path('admin.playlist.ajout') }}" , class="btn btn-primary">
+            Ajouter une nouvelle playlist
+        </a>
+    </p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Playlist 
+                </th>                             
+                <th>
+                     Actions
+                </th> 
+            </tr>
+        </thead>
+        <tbody>
+            {% for playlist in playlists %}
+                <tr>
+                    <td>
+                        {{ playlist.name }}
+                    </td>                                             
+                    <td>
+                    <a href="{{ path('admin.playlist.edit', {id:playlist.id}) }}" class="btn btn-secondary">Editer</a>
+                    <a href="{{ path('admin.playlist.suppr', {id:playlist.id}) }}" onclick="return confirm('Etes-vous sûr de vouloir supprimer {{ playlist.name }} ? Cela supprimera également les formations associées.')" class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
