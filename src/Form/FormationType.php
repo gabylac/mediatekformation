@@ -23,8 +23,7 @@ class FormationType extends AbstractType
                     $options['data']->getPublishedAt() != null ? $options['data']->getPublishedAt(): new DateTime('now'), 'label' => 'date'
             ])
             ->add('title', null, ['label'=> 'titre'])
-            ->add('description')
-            ->add('videoId', null, ['label'=>'selection video'])
+            ->add('description')            
             ->add('playlist', EntityType::class, [
                 'class' => Playlist::class,
                 'choice_label' => 'name'

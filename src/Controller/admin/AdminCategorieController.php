@@ -32,6 +32,14 @@ class AdminCategorieController extends AbstractController{
     #[Route('/admin/categories/suppr/{id}', name: 'admin.categories.suppr')]
     public function suppr($id): Response{
         $categorie = $this->repository->find($id);
+        $formations = $this->repository->findAllForOne($id);        
+        foreach($formations as $formation){
+            if($formation){
+                $message = 'Impossible de supprimer la catégorie, des formations y sont attachées';
+                $this->addFlash('Erreur', $message);
+                return $this->redirectToRoute('admin.categories');                            
+            }         
+        }
         $this->repository->remove($categorie);
         return $this->redirectToRoute('admin.categories');
     }
@@ -39,9 +47,18 @@ class AdminCategorieController extends AbstractController{
     #[Route('/admin/categories/ajout', name: 'admin.categorie.ajout')]
     public function ajout(Request $request): Response{
         $nomCategorie = $request ->get("nom");
-        $categorie = new Categorie();
-        $categorie ->setName($nomCategorie);
-        $this ->repository ->add($categorie);
-        return $this->redirectToRoute('admin.categories');
+        $existingCategories = $this->repository->findOneBy(['name' =>$nomCategorie]);        
+        
+        if($existingCategories ) {
+            $message = "Impossible de créer la catégorie, le nom de la catégorie existe déjà";
+            $this->addFlash('Erreur', $message);
+            return $this->redirectToRoute('admin.categories');
+        }else{
+            $categorie = new Categorie();
+            $categorie ->setName($nomCategorie);
+            $this ->repository ->add($categorie);
+            return $this->redirectToRoute('admin.categories');            
+        }
     }
+    
 }

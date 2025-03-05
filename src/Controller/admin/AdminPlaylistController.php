@@ -37,8 +37,14 @@ class AdminPlaylistController extends AbstractController{
     #[Route('admin/playlist/suppr/{id}', name: 'admin.playlist.suppr')]
     public function suppr($id, Formation $idPlaylist): Response {
         $playlist = $this->repository->find($id);
-        $this->formationRepository->removeFormations($idPlaylist);
-        $this->repository->remove($playlist);
+        $nbFormation = $this->formationRepository->nbFormationByOnePlaylist($id);
+        if($nbFormation == 0){
+            $this->repository->remove($playlist);
+        }else{
+            $message = 'Impossible de supprimer la playlist, des formations y sont attachées';
+            $this->addFlash('Erreur', $message);
+            return $this->redirectToRoute('admin.playlists');
+        }
         return $this->redirectToRoute('admin.playlists');
     }
     
@@ -69,6 +75,25 @@ class AdminPlaylistController extends AbstractController{
         }        
         return $this->render("admin/admin.playlist.editer.html.twig", ['playlist' => $playlist, 
             'formplaylist' => $formPlaylist->createView()]);
-    }   
+    }
+    
+    #[Route('admin/playlists/tri/{champ}/{ordre}/{table}', name: 'admin.playlists.sort')]
+    public function sort($champ, $ordre, $table=""): Response{
+        $playlists = $this->repository->findAllOrderByName($ordre);
+        return $this->render("admin/admin.playlists.html.twig", [
+            'playlists' => $playlists
+        ]);
+    }
+    
+    #[Route('admin/playlists/recherche/{champ}/{table}', name: 'admin.playlists.findallcontain')]
+    public function findAllContain($champ, Request $request, $table=""): Response{        
+        $valeur = $request->get("recherche");
+        $playlists = $this->repository->findByContainValue($champ, $valeur, $table);        
+        return $this->render("admin/admin.playlists.html.twig", [
+            'playlists' => $playlists,
+            'valeur' => $valeur,
+            'table' => $table
+        ]);        
+    }
     
 }

@@ -109,17 +109,18 @@ class FormationRepository extends ServiceEntityRepository
     }
     
     /**
-     *Supprime toutes les formations d'une playlist en une fois 
-     * @param Formation $idPlaylist
-     * @return void
+     * Retourne le nombre de formations d'une playlist
+     * @param type $idPlaylist
+     * @return int
      */
-    public function removeFormations(Formation $idPlaylist): void{
-         $formations = $this->findAllForOnePlaylist($idPlaylist);
-         foreach($formations as $formation){
-             $this->getEntityManager()->remove($formation);
-             $this->getEntityManager()->flush();
-         }
-         
-     }
+    public function nbFormationByOnePlaylist($idPlaylist): int{
+        return $this->createQueryBuilder('f')
+                ->select('COUNT(f)')
+                ->join('f.playlist', 'p')
+                ->where('p.id=:id')
+                ->setParameter('id', $idPlaylist)
+                ->getQuery()
+                ->getSingleScalarResult();
+    }
         
 }
