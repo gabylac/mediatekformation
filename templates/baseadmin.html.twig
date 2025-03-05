@@ -4,6 +4,11 @@
 {% block stylesheets %}{% endblock %}
 {% block top %}
     <div class="container">
+        <div class="text-end">
+            {% if app.user %}
+                <a href="{{ path('logout') }}">Se deconnecter</a>
+            {% endif %}
+        </div>
         <!-- titre -->
         <div class="text-left">
             <img src="{{ app.request.getBasePath()~'/banniere.jpg' }}" >
