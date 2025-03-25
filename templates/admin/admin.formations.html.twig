@@ -61,30 +61,32 @@
                 </th> 
             </tr>
         </thead>
-        <tbody>
-            {% for formation in formations %}
-                <tr>
-                    <td width="500">                    
-                            {{ formation.title }}                        
+        <tbody>            
+                {% for k in 0..formations|length-1 %}
+                <tr class="align-middle">
+                    <td>
+                        <h5 class="text-info" width="400">
+                            {{ formations[k].title }}
+                        </h5>
                     </td>                                
                     <td>
-                        {{ formation.publishedAtstring }}
+                        {{ formations[k].publishedAtstring }}
                     </td>
                     <td>
-                        {{ formation.playlist.name }}
+                        {{ formations[k].playlist.name }}
                         
                     </td>                    
                     <td class="text-left">
-                       {% for categorie in formation.categories %}
+                       {% for categorie in formations[k].categories %}
                             {{ categorie.name }}<br />
                         {% endfor %}                     
                     </td>
                     <td>
-                        <a href="{{ path('admin.formation.edit', {id:formation.id}) }}" class="btn btn-secondary">Editer</a>
-                    <a href="{{ path('admin.formations.suppr', {id:formation.id}) }}" onclick="return confirm('Etes-vous sûr de vouloir supprimer {{ formation.title }} ?')" class="btn btn-danger">Supprimer</a>
+                        <a href="{{ path('admin.formation.edit', {id:formations[k].id}) }}" class="btn btn-secondary">Editer</a>
+                        <a href="{{ path('admin.formations.suppr', {id:formations[k].id}) }}" onclick="return confirm('Etes-vous sûr de vouloir supprimer {{ formations[k].title }} ?')" class="btn btn-danger">Supprimer</a>
                     </td>
                 </tr>
-            {% endfor %}
+                {% endfor %}            
         </tbody>
     </table>
 {% endblock %}

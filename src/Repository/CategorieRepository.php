@@ -43,26 +43,5 @@ class CategorieRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getResult();        
     }  
-    
-    public function findAllName(): array{
-        return $this->createQueryBuilder('c')
-                ->select('c.name')                                
-                ->getQuery()
-                ->getResult(); 
-    }
-    
-    /**
-     * Retourne la liste des formations d'une catégorie
-     * @param type $idCategorie
-     * @return array
-     */
-    public function findAllForOne($idCategorie): array{
-        return $this->createQueryBuilder('c')
-                ->join('c.formations', 'f')
-                ->where('c.id=:id')
-                ->setParameter('id', $idCategorie)
-                ->getQuery()
-                ->getResult();
-    }
-
+        
 }

@@ -35,7 +35,7 @@ class AdminPlaylistController extends AbstractController{
     }
 
     #[Route('admin/playlist/suppr/{id}', name: 'admin.playlist.suppr')]
-    public function suppr($id, Formation $idPlaylist): Response {
+    public function suppr($id): Response {
         $playlist = $this->repository->find($id);
         $nbFormation = $this->formationRepository->nbFormationByOnePlaylist($id);
         if($nbFormation == 0){
@@ -77,8 +77,8 @@ class AdminPlaylistController extends AbstractController{
             'formplaylist' => $formPlaylist->createView()]);
     }
     
-    #[Route('admin/playlists/tri/{champ}/{ordre}/{table}', name: 'admin.playlists.sort')]
-    public function sort($champ, $ordre, $table=""): Response{
+    #[Route('admin/playlists/tri/{ordre}', name: 'admin.playlists.sort')]
+    public function sort($ordre): Response{
         $playlists = $this->repository->findAllOrderByName($ordre);
         return $this->render("admin/admin.playlists.html.twig", [
             'playlists' => $playlists

@@ -122,5 +122,19 @@ class FormationRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getSingleScalarResult();
     }
+    
+    /**
+     * Retourne la liste des formations d'une catégorie
+     * @param type $idCategorie
+     * @return array
+     */
+    public function findAllForOne($idCategorie): array{
+        return $this->createQueryBuilder('f')
+                ->join('f.categories', 'c')
+                ->where('c.id=:id')
+                ->setParameter('id', $idCategorie)
+                ->getQuery()
+                ->getResult();
+    }
         
 }

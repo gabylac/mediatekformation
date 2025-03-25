@@ -5,6 +5,7 @@ namespace App\Controller\admin;
 
 use App\Entity\Categorie;
 use App\Repository\CategorieRepository;
+use App\Repository\FormationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,23 +24,36 @@ class AdminCategorieController extends AbstractController{
         return $this->render("admin/admin.categories.html.twig", ['categories' => $categories]);
     }
     
+    /**
+     * 
+     * @var CategoryRepository
+     */
     private $repository;
+    /**
+     * 
+     * @var FormationRepository
+     */
+    private $formationRepository;
     
-    public function __construct(CategorieRepository $repository) {
+    /**
+     * constructeur
+     * @param CategorieRepository $repository
+     * @param FormationRepository $formationRepository
+     */
+    public function __construct(CategorieRepository $repository, FormationRepository $formationRepository) {
         $this->repository = $repository;
+        $this->formationRepository = $formationRepository;
     }
     
     #[Route('/admin/categories/suppr/{id}', name: 'admin.categories.suppr')]
     public function suppr($id): Response{
         $categorie = $this->repository->find($id);
-        $formations = $this->repository->findAllForOne($id);        
-        foreach($formations as $formation){
-            if($formation){
-                $message = 'Impossible de supprimer la catégorie, des formations y sont attachées';
-                $this->addFlash('Erreur', $message);
-                return $this->redirectToRoute('admin.categories');                            
-            }         
-        }
+        $formation = $this->formationRepository->findAllForOne($id);       
+        if($formation != null){
+            $message = 'Impossible de supprimer la catégorie, des formations y sont attachées';
+            $this->addFlash('Erreur', $message);
+            return $this->redirectToRoute('admin.categories');                            
+        }       
         $this->repository->remove($categorie);
         return $this->redirectToRoute('admin.categories');
     }
