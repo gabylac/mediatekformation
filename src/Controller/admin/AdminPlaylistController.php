@@ -26,9 +26,22 @@ class AdminPlaylistController extends AbstractController{
         return $this->render("admin/admin.playlists.html.twig", ['playlists' => $playlists]);
     }
     
+    /**
+     * 
+     * @var PlaylistRepository
+     */
     private $repository;
+    /**
+     * 
+     * @var FormationRepository
+     */
     private $formationRepository;    
     
+    /**
+     * constructeur
+     * @param PlaylistRepository $repository
+     * @param FormationRepository $formationRepository
+     */
     public function __construct(PlaylistRepository $repository, FormationRepository $formationRepository) {
         $this->repository = $repository;
         $this->formationRepository = $formationRepository;

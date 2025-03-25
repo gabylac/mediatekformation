@@ -29,6 +29,10 @@ class AdminFormationController extends AbstractController{
 
     }
     
+    /**
+     * 
+     * @var FormationRepository
+     */
     private $formationRepository;
     
     /**
@@ -37,6 +41,11 @@ class AdminFormationController extends AbstractController{
      */
     private $categorieRepository;
     
+    /**
+     * constructeur
+     * @param FormationRepository $formationRepository
+     * @param CategorieRepository $categorieRepository
+     */
     public function __construct(FormationRepository $formationRepository, CategorieRepository $categorieRepository) {
         $this->formationRepository = $formationRepository;
         $this->categorieRepository= $categorieRepository;
