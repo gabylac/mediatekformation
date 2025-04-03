@@ -80,6 +80,7 @@ Le chemin des images (des 2 tailles) n'est pas mémorisé dans la BDD car il peu
 ## Test de l'application en local
 - Vérifier que Composer, Git et Wamserver (ou équivalent) sont installés sur l'ordinateur.
 - Télécharger le code et le dézipper dans www de Wampserver (ou dossier équivalent) puis renommer le dossier en "mediatekformation".<br>
+lien vers le readme du développement de la partie front end: https://github.com/CNED-SLAM/mediatekformation<br>
 - Ouvrir une fenêtre de commandes en mode admin, se positionner dans le dossier du projet et taper "composer install" pour reconstituer le dossier vendor.<br>
 - Dans phpMyAdmin, se connecter à MySQL en root sans mot de passe et créer la BDD 'mediatekformation'.<br>
 - Récupérer le fichier mediatekformation.sql en racine du projet et l'utiliser pour remplir la BDD (si vous voulez mettre un login/pwd d'accès, il faut créer un utilisateur, lui donner les droits sur la BDD et il faut le préciser dans le fichier ".env" en racine du projet).<br>
